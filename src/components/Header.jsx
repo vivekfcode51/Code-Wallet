@@ -18,7 +18,7 @@ const Header = () => {
                 </div>
 
                 {/* Right section (future use like profile / logout button) */}
-                <div>
+                <div className="flex ">
                     <button
                         className="px-4 py-2 text-[#525252] rounded-md text-sm font-medium hover:bg-gray-300 transition cursor-pointer">
                         <Bell size={22} />
