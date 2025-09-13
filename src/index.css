@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color variables */
+  --color-primary: #3490dc;
+  --color-secondary: #ffed4a;
+  --color-accent: #38c172;
+  --color-buttonRed: #C10932;
+  --color-inputBoxBg: #F3F5F7;
+  --color-inputText: #8F9398;
+  --color-darkGray: #525252;
+  --color-inputBorder: #8F9398;
+  --color-grayBorder: #8F9398;
+  --color-black: #3B3B3B;
+  --color-red: #C10932;
+  --color-grayBg: #E7E7E7;
+  --color-lightGray: #969696;
+  --color-lightGreen: #AFEE9A;
+
+  /* Typography */
+
+  --text-vsm: 10px;
+  --text-ssm: 14px;
+  --text-sm: 18px;
+  --text-xsm: 24px;
+  --text-md: 32px;
+  --font-xsm: 14px;
+  --font-lg: 50px;
+
+  --font-body: 'Roboto', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+
+  /* radius */
+  --radius-lg:16px
+
+  /* Animation */
+  --animation-bounce: bounce 1s infinite;
+
+  /* Breakpoints */
+  --breakpoint-xs3: 500px;
+    
+
+}
