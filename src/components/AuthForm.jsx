@@ -21,7 +21,7 @@ export default function AuthForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-4">
-      <div className="w-full max-w-[35%] bg-white shadow-lg rounded-2xl p-8">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
         {/* Logo & Title */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold">SecureWallet</h1>
