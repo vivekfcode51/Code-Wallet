@@ -9,9 +9,9 @@ export default function TransactionHistory() {
       date: "Dec 8, 2024, 04:00 PM",
       amount: "+$1,500.00",
       status: "Approved",
-      statusColor: "bg-gray-900 text-white",
-      icon: <ArrowDownLeft className="w-5 h-5 text-green-600" />,
-      amountColor: "text-green-600",
+      statusColor: "bg-gray-900 dark:bg-richblack-600 text-white",
+      icon: <ArrowDownLeft className="w-5 h-5 text-green-600 dark:text-green-400" />,
+      amountColor: "text-green-600 dark:text-green-400",
       highlight: true,
     },
     {
@@ -20,9 +20,9 @@ export default function TransactionHistory() {
       date: "Dec 7, 2024, 07:45 PM",
       amount: "-$250.00",
       status: "Approved",
-      statusColor: "bg-gray-900 text-white",
-      icon: <ArrowUpRight className="w-5 h-5 text-blue-600" />,
-      amountColor: "text-blue-600",
+      statusColor: "bg-gray-900 dark:bg-richblack-600 text-white",
+      icon: <ArrowUpRight className="w-5 h-5 text-blue-600 dark:text-blue-500" />,
+      amountColor: "text-blue-600 dark:text-blue-500",
     },
     {
       id: 3,
@@ -31,8 +31,8 @@ export default function TransactionHistory() {
       amount: "+$800.00",
       status: "Pending",
       statusColor: "bg-gray-200 text-gray-700",
-      icon: <ArrowDownLeft className="w-5 h-5 text-green-600" />,
-      amountColor: "text-green-600",
+      icon: <ArrowDownLeft className="w-5 h-5 text-green-600 dark:text-green-400" />,
+      amountColor: "text-green-600 dark:text-green-400",
     },
     {
       id: 4,
@@ -41,29 +41,29 @@ export default function TransactionHistory() {
       amount: "-$100.00",
       status: "Rejected",
       statusColor: "bg-red-600 text-white",
-      icon: <ArrowUpRight className="w-5 h-5 text-blue-600" />,
-      amountColor: "text-blue-600",
+      icon: <ArrowUpRight className="w-5 h-5 text-blue-600 dark:text-blue-500" />,
+      amountColor: "text-blue-600 dark:text-blue-500",
     },
   ];
 
   return (
-    <div className="bg-white rounded-2xl shadow p-6">
-      <h2 className="text-lg font-semibold mb-4">Transaction History</h2>
+    <div className="bg-white dark:bg-richblack-900 rounded-2xl shadow p-6">
+      <h2 className="text-lg font-semibold mb-4 dark:text-richblack-25">Transaction History</h2>
 
       <div className="space-y-3">
         {transactions.map((tx) => (
           <div
             key={tx.id}
-            className={`flex items-center justify-between rounded-xl border border-gray-200 p-4 ${
-              tx.highlight ? "bg-gray-50" : "bg-white"
+            className={`flex items-center justify-between rounded-xl border border-gray-200 dark:border-richblack-400 p-4 ${
+              tx.highlight ? "bg-gray-50 dark:bg-richblack-800" : "bg-white dark:bg-richblack-800"
             }`}
           >
             {/* Left Side */}
             <div className="flex items-start space-x-3">
               <div>{tx.icon}</div>
               <div>
-                <p className="font-medium text-gray-900">{tx.type}</p>
-                <p className="text-sm text-gray-500">{tx.date}</p>
+                <p className="font-medium text-gray-900 dark:text-richblack-25">{tx.type}</p>
+                <p className="text-sm text-gray-500 dark:text-richblack-400">{tx.date}</p>
               </div>
             </div>
 
