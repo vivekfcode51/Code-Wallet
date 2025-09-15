@@ -3,7 +3,7 @@ import { User, Mail, Phone, Hash, SquarePen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Overview Component
-const Overview = ({ userData }) => {
+const Overview = ({ userData, setActiveTab, }) => {
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm">
       <div className="flex items-center mb-6">
@@ -53,12 +53,12 @@ const Overview = ({ userData }) => {
         </div>
 
         <div className="mt-6 flex justify-end">
-          <Link to="/edit-profile">
-            <button className="flex items-center mb-2 rounded-2xl p-2 border border-gray-200 cursor-pointer">
+          {/* <Link to="/edit-profile"> */}
+            <button onClick={()=>setActiveTab("edit-profile")} className="flex items-center mb-2 rounded-2xl p-2 border border-gray-200 cursor-pointer">
                 <SquarePen className="w-4 h-4 text-gray-500 mr-2" />
                 <span className="text-sm text-gray-800 font-semibold">Edit Information</span>
             </button>
-          </Link>
+          {/* </Link> */}
         </div>
 
     </div>
@@ -66,4 +66,3 @@ const Overview = ({ userData }) => {
 };
 
 export default Overview
-

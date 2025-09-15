@@ -18,15 +18,15 @@ const Header = () => {
                 </div>
 
                 {/* Right section (future use like profile / logout button) */}
-                <div>
+                <div className='flex'>
                     <button
-                        className="px-4 py-2 text-[#525252] rounded-md text-sm font-medium hover:bg-gray-300 transition cursor-pointer">
+                        className="px-2 sm:px-4 py-2 text-[#525252] rounded-md text-sm font-medium hover:bg-gray-300 transition cursor-pointer">
                         <Bell size={22} />
                     </button>
-                    <button 
+                    {/* <button 
                         className="px-4 py-2 text-[#525252] rounded-md text-sm font-medium hover:bg-gray-300 transition cursor-pointer">
                         <Settings size={22} />
-                    </button>
+                    </button> */}
                     <Link to="/profile">
                         <button 
                             className="px-4 py-2 text-[#525252] rounded-md text-sm font-medium hover:bg-gray-300 transition cursor-pointer">
@@ -35,7 +35,9 @@ const Header = () => {
                     </Link>
                     <button 
                         className="px-4 py-2 text-[#525252] rounded-md text-sm font-medium hover:bg-gray-300 transition cursor-pointer">
+                       <Link to="/">
                         <ArrowDownNarrowWide size={22} />
+                       </Link>
                     </button>
                 </div>
             </div>

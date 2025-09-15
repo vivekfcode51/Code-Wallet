@@ -23,20 +23,24 @@ export default function Dashboard() {
 
         {/* Pending Requests */}
         <div className="bg-white border border-gray-300 rounded-2xl p-6 shadow-sm">
-          <h3 className="text-base font-medium text-gray-900">
-            Pending Requests
-          </h3>
-          <p className="text-3xl font-semibold mt-3">1</p>
-          <p className="text-sm text-gray-500 mt-1">Awaiting approval</p>
+          <h3 className="text-base font-medium text-gray-900">Total Deposit</h3>
+          <p className="text-3xl font-semibold mt-3">+$2,300</p>
+          <div className='flex justify-end'>
+            <button className="text-sm text-gray-600 font-semibold hover:bg-gray-300 hover:text-gray-800 mt-1 border
+               border-gray-200 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
+          </div>
         </div>
 
         {/* This Month */}
         <div className="bg-white border border-gray-300 rounded-2xl p-6 shadow-sm">
-          <h3 className="text-base font-medium text-gray-900">This Month</h3>
+          <h3 className="text-base font-medium text-gray-900">Total Withdrawal</h3>
           <p className="text-3xl font-semibold text-green-600 mt-3">
             +$2,300
           </p>
-          <p className="text-sm text-gray-500 mt-1">Net deposits</p>
+          <div className='flex justify-end'>
+            <button className="text-sm text-gray-600 font-semibold hover:bg-gray-300 hover:text-gray-800 mt-1 border 
+             border-gray-200 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
+          </div>
         </div>
       </div>
 

@@ -42,7 +42,7 @@ const EditProfile = ({ userData, onUpdate }) => {
               type="text"
               value={formData.fullName}
               onChange={(e) => handleInputChange('fullName', e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all"
               placeholder="John Doe"
             />
           </div>
@@ -57,7 +57,7 @@ const EditProfile = ({ userData, onUpdate }) => {
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all"
               placeholder="john.doe@example.com"
             />
           </div>
@@ -72,7 +72,7 @@ const EditProfile = ({ userData, onUpdate }) => {
               type="tel"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all"
               placeholder="+1 (555) 123-4567"
             />
           </div>
@@ -105,14 +105,14 @@ const EditProfile = ({ userData, onUpdate }) => {
       </div>
       
       {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex gap-3">
         <button className="flex w-[50%] items-center justify-center px-6 py-3 bg-white border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors font-medium">
           <span className="mr-2">✕</span>
           Cancel
         </button>
         <button
           onClick={handleSave}
-          className="flex w-[50%] items-center justify-center px-6 py-3 bg-gray-400 text-white rounded-xl hover:bg-gray-800 transition-colors font-medium"
+          className="flex w-[50%] items-center justify-center px-6 py-3 bg-gray-400 text-white rounded-xl hover:bg-gray-800 transition-colors font-medium whitespace-nowrap"
         >
           <span className="mr-2">💾</span>
           Save Changes

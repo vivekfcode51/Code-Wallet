@@ -33,7 +33,7 @@ export default function ProfileTabs() {
   const renderContent = () => {
     switch (activeTab) {
       case 'overview':
-        return <Overview userData={userData} />;
+        return <Overview userData={userData} setActiveTab={setActiveTab}/>;
       case 'edit-profile':
         return <EditProfile userData={userData} onUpdate={updateUserData} />;
       case 'security':
