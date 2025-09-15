@@ -26,7 +26,7 @@ export default function Dashboard() {
           <h3 className="text-base font-medium text-gray-900">Total Deposit</h3>
           <p className="text-3xl font-semibold mt-3">+$2,300</p>
           <div className='flex justify-end'>
-            <button className="text-sm text-gray-600 font-semibold hover:bg-gray-300 hover:text-gray-800 mt-1 border
+            <button className="text-sm text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
                border-gray-200 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
           </div>
         </div>
@@ -38,7 +38,7 @@ export default function Dashboard() {
             +$2,300
           </p>
           <div className='flex justify-end'>
-            <button className="text-sm text-gray-600 font-semibold hover:bg-gray-300 hover:text-gray-800 mt-1 border 
+            <button className="text-sm text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border 
              border-gray-200 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
           </div>
         </div>

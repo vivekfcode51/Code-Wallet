@@ -45,13 +45,6 @@ function App() {
             path='/profile'
             element={<ProfileTabs/>}
           />  
-
-          {/* Edit profile */}
-          <Route
-            path='/edit-profile'
-            element={<EditProfile/>}
-          />
-
         </Routes>
       
       </div>
