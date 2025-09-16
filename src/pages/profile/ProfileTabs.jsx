@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from 'react'
+import axios from "axios";
 import Overview from "./Overview";
 import EditProfile from "./EditProfile";
 import Security from "./Security";
 import Verification from "./Verification";
+import apis from "../../utils/apis";
 import {Shield, Check, Camera } from 'lucide-react';
+import avatarImage from "../../assets/man-face.jpg"
 
 
 export default function ProfileTabs() {
+  const user_id = localStorage.getItem("user_id")
   const [activeTab, setActiveTab] = useState('overview');
   const [userData, setUserData] = useState({
-    fullName: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
-    accountId: 'SW-789123456',
-    memberSince: 'January 15, 2024',
+    fullName: '',
+    email: '',
+    phone: '',
+    accountId: '',
+    memberSince: '',
+    profile_image: "",
     verified: true,
     twoFAEnabled: false
   });
@@ -45,6 +50,41 @@ export default function ProfileTabs() {
     }
   };
 
+  const fetchProfile = async () => {
+    try {
+        // setLoading(true);
+        const response = await axios.get(`${apis?.get_profile}?user_id=${user_id}`);
+        console.log("Profile Api Response", response);
+
+        if (response.data?.status && response.data.profile) {
+          const profile = response.data.profile;
+
+          setUserData({
+            fullName: profile.name || "",
+            email: profile.email || "",
+            phone: profile.phone || "+1 (555) 123-4567", // agar API me phone ho to
+            accountId: profile.u_id || "",
+            profile_image: profile.profile_image || "",
+            memberSince: profile.created_at
+              ? new Date(profile.created_at).toLocaleDateString()
+              : "",
+            verified: profile.status === 1, // status se verified check
+            twoFAEnabled: false, // API me nahi hai, default false
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      } finally {
+        // setLoading(false);
+      }
+  };
+
+  useEffect(() => {
+    fetchProfile()
+  },[])
+
+  console.log("profile_image",userData.profile_image)
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-richblack-800 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -52,9 +92,10 @@ export default function ProfileTabs() {
         <div className="bg-white dark:bg-richblack-900 rounded-lg p-6 shadow-sm mb-6">
           <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
             <div className="relative">
-              <div className="w-20 h-20 bg-gray-200 dark:bg-amber-400 rounded-full flex items-center justify-center text-gray-600 text-2xl font-semibold">
+              {/* <div className="w-20 h-20 bg-gray-200 dark:bg-amber-400 rounded-full flex items-center justify-center text-gray-600 text-2xl font-semibold">
                 JD
-              </div>
+              </div> */}
+              <img src={userData.profile_image ? userData.profile_image : avatarImage} alt="profile_image" className="w-16 h-16 rounded-full"/>
               <div className="absolute -bottom-1 -right-1 w-6 h-6 cursor-pointer bg-green-500 rounded-full border-2 border-white dark:border-richblack-100 flex items-center justify-center">
                 <Camera className="w-3 h-3 text-white dark:text-richblack-5" />
               </div>
