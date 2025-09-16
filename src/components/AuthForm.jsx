@@ -29,7 +29,7 @@ export default function AuthForm() {
         </div>
 
         {/* Toggle */}
-        <div className="flex mb-6 bg-gray-100 dark:bg-richblack-800 rounded-full p-1">
+        <div className="flex mb-6 bg-gray-100 dark:bg-richblack-800 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] rounded-full p-1">
           <button
             onClick={() => setIsSignIn(true)}
             className={`flex-1 py-2 rounded-full cursor-pointer text-sm font-medium transition ${

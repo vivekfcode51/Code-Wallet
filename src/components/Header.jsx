@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <>
         <div className="flex h-20 items-center justify-center border-b border-gray-200 bg-white shadow-sm dark:bg-richblack-900
-           dark:text-richblack-25">
+           dark:text-richblack-25 dark:border-richblack-500">
             <div className="flex w-11/12 max-w-6xl items-center justify-between">
                 {/* Left section */}
                 <div className="flex items-center space-x-3">

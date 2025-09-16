@@ -46,7 +46,7 @@ export default function ProfileTabs() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-richblack-900 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Profile Header */}
         <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
@@ -78,7 +78,7 @@ export default function ProfileTabs() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="bg-gray-200 rounded-full shadow-sm mb-6 overflow-hidden p-1">
+        <div className="bg-gray-200 dark:bg-richblack-700 rounded-full mb-6 overflow-hidden p-1 dark:shadow-[inset_0_-2px_0_rgba(255,255,255,0.18)]">
           <nav className="flex flex-wrap gap-1">
             {tabs.map((tab) => (
               <button
@@ -86,8 +86,8 @@ export default function ProfileTabs() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 min-w-0 py-3 px-4 text-center font-medium text-sm transition-all duration-300 rounded-full cursor-pointer ${
                   activeTab === tab.id
-                    ? 'text-gray-800 bg-white shadow-sm'
-                    : 'text-gray-600 hover:text-gray-800 hover:bg-gray-200'
+                    ? 'text-gray-800 bg-white dark:bg-richblack-900 dark:text-richblack-5 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-800 hover:bg-gray-200 dark:text-richblack-400 dark:hover:bg-richblack-900 dark:hover:text-richblack-5'
                 }`}
               >
                 {tab.label}

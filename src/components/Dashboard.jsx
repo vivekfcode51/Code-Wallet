@@ -24,22 +24,22 @@ export default function Dashboard() {
         {/* Total Deposit */}
         <div className="bg-white dark:bg-richblack-800 border border-gray-300 dark:border-richblack-400 rounded-2xl p-6 shadow-sm">
           <h3 className="text-base font-medium text-gray-900 dark:text-richblack-25">Total Deposit</h3>
-          <p className="text-3xl font-semibold mt-3 dark:text-richblack-25">+$2,300</p>
+          <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+$2,300</p>
           <div className='flex justify-end'>
-            <button className="text-sm text-gray-600 dark:text-richblack-50 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
-               border-gray-200 dark:hover:border-richblack-400 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
+            <button className="text-sm text-gray-600 dark:bg-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
+               dark:hover:bg-yellow-100 border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
           </div>
         </div>
 
         {/* Total Withdrawal*/}
         <div className="bg-white dark:bg-richblack-800 border border-gray-300 dark:border-richblack-400 rounded-2xl p-6 shadow-sm">
           <h3 className="text-base font-medium text-gray-900 dark:text-richblack-25">Total Withdrawal</h3>
-          <p className="text-3xl font-semibold text-green-600 mt-3">
+          <p className="text-3xl font-semibold text-caribbeangreen-400 mt-3">
             +$2,300
           </p>
           <div className='flex justify-end'>
-            <button className="text-sm text-gray-600 dark:text-richblack-50 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border 
-             border-gray-200 dark:hover:border-richblack-400 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
+            <button className="text-sm text-gray-600 dark:bg-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 dark:hover:bg-yellow-100 hover:text-gray-800 mt-1 border 
+             border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default function Dashboard() {
           </button>
           <button 
             onClick={() => navigate("/withdrawal-request")}
-            className="bg-white dark:bg-richblack-400 dark:hover:bg-richblack-500 text-black rounded-lg py-3 font-medium hover:bg-gray-100 transition cursor-pointer">
+            className="bg-white dark:bg-richblack-600 dark:hover:bg-richblack-500 text-black dark:text-richblack-25 rounded-lg py-3 font-medium hover:bg-gray-100 transition cursor-pointer">
             Withdraw
           </button>
         </div>
