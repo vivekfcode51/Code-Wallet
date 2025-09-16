@@ -46,23 +46,23 @@ export default function ProfileTabs() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-richblack-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-richblack-800 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Profile Header */}
-        <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
+        <div className="bg-white dark:bg-richblack-900 rounded-lg p-6 shadow-sm mb-6">
           <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
             <div className="relative">
-              <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 text-2xl font-semibold">
+              <div className="w-20 h-20 bg-gray-200 dark:bg-amber-400 rounded-full flex items-center justify-center text-gray-600 text-2xl font-semibold">
                 JD
               </div>
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 cursor-pointer bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
-                <Camera className="w-3 h-3 text-white" />
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 cursor-pointer bg-green-500 rounded-full border-2 border-white dark:border-richblack-100 flex items-center justify-center">
+                <Camera className="w-3 h-3 text-white dark:text-richblack-5" />
               </div>
             </div>
             
             <div className="text-center sm:text-left">
-              <h1 className="text-2xl font-bold text-gray-900">{userData.fullName}</h1>
-              <p className="text-gray-600">{userData.email}</p>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-richblack-25">{userData.fullName}</h1>
+              <p className="text-gray-600 dark:text-richblack-400">{userData.email}</p>
               <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   <Check className="w-3 h-3 mr-1" />
@@ -78,7 +78,7 @@ export default function ProfileTabs() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="bg-gray-200 dark:bg-richblack-700 rounded-full mb-6 overflow-hidden p-1 dark:shadow-[inset_0_-2px_0_rgba(255,255,255,0.18)]">
+        <div className="bg-gray-200 dark:bg-richblack-700 rounded-full mb-6 overflow-hidden p-1 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]">
           <nav className="flex flex-wrap gap-1">
             {tabs.map((tab) => (
               <button

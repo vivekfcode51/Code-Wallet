@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <div className='w-screen min-h-screen flex flex-col'>
+      <div className='w-screen min-h-screen'>
 
         <Routes>
           {/* <Route path="/" element={<Home/>} /> */}
