@@ -13,6 +13,9 @@ const apis = {
   // Profile api
   get_profile: `${configModalUsaWin}profile`,
 
+  // deposit api
+  deposit_request:`${configModalUsaWin}deposit_request`,
+
 
 }
 

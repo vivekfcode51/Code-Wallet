@@ -54,7 +54,7 @@ export default function ProfileTabs() {
     try {
         // setLoading(true);
         const response = await axios.get(`${apis?.get_profile}?user_id=${user_id}`);
-        console.log("Profile Api Response", response);
+        // console.log("Profile Api Response", response);
 
         if (response.data?.status && response.data.profile) {
           const profile = response.data.profile;
@@ -83,7 +83,7 @@ export default function ProfileTabs() {
     fetchProfile()
   },[])
 
-  console.log("profile_image",userData.profile_image)
+  // console.log("profile_image",userData.profile_image)
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-richblack-800 py-8 px-4 sm:px-6 lg:px-8">

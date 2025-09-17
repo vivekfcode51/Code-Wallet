@@ -13,7 +13,7 @@ const Header = () => {
             <div className="flex w-11/12 max-w-6xl items-center justify-between">
                 {/* Left section */}
                 <div className="flex items-center space-x-3">
-                    <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
+                    <img src={logo} alt="Logo" className="w-12 h-12 object-contain" />
                     <div className="leading-tight">
                         <h2 className="text-lg font-semibold text-gray-900 dark:text-richblack-25">SecureWallet</h2>
                         <p className="text-sm text-gray-500 dark:text-richblack-25">Welcome back, text@gmail.com</p>

@@ -52,13 +52,13 @@ const WithdrawalRequest = () => {
   ]
 
   return (
-    <div className="bg-white max-w-md mx-auto rounded-2xl shadow-lg p-6">
+    <div className="bg-white dark:bg-richblack-900 max-w-md mx-auto rounded-2xl shadow-lg p-6">
     {/* Back Arrow */}
       <button
         onClick={() => navigate(-1)}   // 👈 back le jayega
-        className=" p-1 rounded-full hover:bg-gray-100 flex justify-start"
+        className=" p-1 rounded-full hover:bg-gray-100 dark:hover:bg-richblack-700 dark:bg-richblack-800 flex justify-start"
       >
-        <ArrowLeft className="w-6 h-6 text-gray-700" />
+        <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400" />
       </button>
      {/* Icon */}
       <div className="flex justify-center mb-4">
@@ -68,9 +68,9 @@ const WithdrawalRequest = () => {
       </div>
 
       {/* Title */}
-      <h2 className="text-xl font-semibold text-center">Request Withdrawal</h2>
-      <p className="text-gray-500 text-center mt-1 mb-6">
-        Submit a withdrawal request to transfer funds from your wallet
+      <h2 className="text-xl font-semibold text-center dark:text-richblack-5">Request Withdrawal</h2>
+      <p className="text-gray-500 dark:text-richblack-400 text-center text-[14px] mt-1 mb-6">
+        Submit a withdrawal request <span className='dark:text-[#47A5C5] italic'>to transfer funds from your wallet</span>
       </p>
 
       {/* Switch Tab - Improved alignment */}
@@ -83,8 +83,8 @@ const WithdrawalRequest = () => {
               key={i}
               className={`col-span-1 mb-2 p-1 rounded-md flex flex-col items-center text-xsm justify-evenly ${
                 item?.type == activeModal
-                  ? "bg-gradient-to-l from-[#6B7280] to-[#9CA3AF] text-white"
-                  : "bg-gray-100 text-gray"
+                  ? "bg-gradient-to-l from-[#6B7280] to-[#9CA3AF] dark:bg-gradient-to-b dark:from-[#7AFEC3] dark:to-[#02AFB6] text-white"
+                  : "bg-gray-100 dark:bg-richblack-800 dark:text-richblack-400 text-gray dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]"
               } shadow-md text-bg6`}
             >
               <img className={`w-${item?.type===2?18:30} h-10`} src={item.image} alt="UPI Payment" />
@@ -98,13 +98,14 @@ const WithdrawalRequest = () => {
 
       {/* Amount Selection Section - TIT20 tabs */}
       {(activeModal == 1) && (
-        <div className="bg-gray-50 rounded-lg p-4 shadow-sm">
+        <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
           {/* {add bank details} */}
           <div className='flex flex-col'>
             <div className='flex justify-between items-center mb-3'>
               <div className='text-gray-700 font-semibold'>Bank Cards</div>
-              <div className='text-sm text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
-               border-gray-200 px-2 py-1 rounded-lg cursor-pointer shadow-sm'>View More</div>
+              <div className='text-[12px] text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg 
+                 cursor-pointer shadow-sm dark:text-richblack-400 dark:bg-richblack-800 dark:border-richblack-800 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]
+                      dark:hover:bg-richblack-700 dark:hover:text-richblack-400'>View More</div>
             </div>
             <div className="flex mb-3 relative">
               {/* Icon inside input */}
@@ -122,12 +123,12 @@ const WithdrawalRequest = () => {
           </div>
 
           {/* Amount Input */}
-          <div className="mb-4">
-            <div className="flex items-center bg-white w-full rounded-lg border border-gray-200 p-2">
-              <div className="flex items-center justify-center text-lg font-bold text-gray-600 mr-3">
+           <div className="mb-4">
+            <div className="flex items-center bg-gray-200 dark:bg-richblack-800 w-full rounded-lg  dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] p-2">
+              <div className="flex items-center justify-center text-lg font-bold text-gray-600 mr-3 dark:text-richblack-200">
                 $
               </div>
-              <div className="w-[1px] bg-gray-300 h-5 mr-3"></div>
+              <div className="w-[1px] bg-gray-300 dark:bg-richblack-400 h-5 mr-3"></div>
               <input
                 value={usdtAmount || ''}
                 onChange={(e) => {
@@ -138,7 +139,7 @@ const WithdrawalRequest = () => {
                 }}
                 type="number"
                 placeholder="Please enter the amount"
-                className="w-full bg-white border-none focus:outline-none text-gray-700 placeholder:text-gray-400 text-sm font-semibold
+                className="w-full bg-gray-200 dark:bg-richblack-800 border-none focus:outline-none text-gray-700 dark:text-richblack-100 placeholder:text-gray-400 text-sm font-semibold
                           [&::-webkit-outer-spin-button]:appearance-none
                           [&::-webkit-inner-spin-button]:appearance-none
                           [&::-moz-number-spin-box]:appearance-none"
@@ -160,8 +161,8 @@ const WithdrawalRequest = () => {
                   }}
                   className={`py-2 px-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     usdtAmount == amount
-                      ? 'bg-gray-500 text-white border-2 border-gray-200'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                      ? 'bg-gray-500 text-white border-2 border-gray-200 dark:bg-[#00B3BB] dark:border-[#00B3BB]'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-richblack-800 dark:border-richblack-800 dark:text-richblack-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700'
                   }`}
                 >
                   ${amount}
@@ -172,10 +173,12 @@ const WithdrawalRequest = () => {
 
           {/* Action Buttons */}
           <div className="flex justify-between space-x-3">
-            <button className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            <button className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors
+                  dark:bg-richblack-800 dark:text-richblack-400 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700">
               Cancel
             </button>
-            <button className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+            <button className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors
+                dark:bg-caribbeangreen-400 dark:text-richblack-900 dark:hover:bg-caribbeangreen-500">
               Submit Request
             </button>
           </div>
@@ -185,14 +188,14 @@ const WithdrawalRequest = () => {
 
       {/* Amount Selection Section -  BEP20 tab*/}
       {(activeModal == 2) && (
-        <div className="bg-gray-50 rounded-lg p-4 shadow-sm">
-
-         {/* {add bank details} */}
+       <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
+          {/* {add bank details} */}
           <div className='flex flex-col'>
             <div className='flex justify-between items-center mb-3'>
               <div className='text-gray-700 font-semibold'>Bank Cards</div>
-              <div className='text-sm text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
-               border-gray-200 px-2 py-1 rounded-lg cursor-pointer shadow-sm'>View More</div>
+              <div className='text-[12px] text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg 
+                 cursor-pointer shadow-sm dark:text-richblack-400 dark:bg-richblack-800 dark:border-richblack-800 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]
+                      dark:hover:bg-richblack-700 dark:hover:text-richblack-400'>View More</div>
             </div>
             <div className="flex mb-3 relative">
               {/* Icon inside input */}
@@ -210,12 +213,12 @@ const WithdrawalRequest = () => {
           </div>
 
           {/* Amount Input */}
-          <div className="mb-4">
-            <div className="flex items-center bg-white w-full rounded-lg border border-gray-200 p-2">
-              <div className="flex items-center justify-center text-lg font-bold text-gray-600 mr-3">
+           <div className="mb-4">
+            <div className="flex items-center bg-gray-200 dark:bg-richblack-800 w-full rounded-lg  dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] p-2">
+              <div className="flex items-center justify-center text-lg font-bold text-gray-600 mr-3 dark:text-richblack-200">
                 $
               </div>
-              <div className="w-[1px] bg-gray-300 h-5 mr-3"></div>
+              <div className="w-[1px] bg-gray-300 dark:bg-richblack-400 h-5 mr-3"></div>
               <input
                 value={usdtAmount || ''}
                 onChange={(e) => {
@@ -226,7 +229,7 @@ const WithdrawalRequest = () => {
                 }}
                 type="number"
                 placeholder="Please enter the amount"
-                className="w-full bg-white border-none focus:outline-none text-gray-700 placeholder:text-gray-400 text-sm font-semibold
+                className="w-full bg-gray-200 dark:bg-richblack-800 border-none focus:outline-none text-gray-700 dark:text-richblack-100 placeholder:text-gray-400 text-sm font-semibold
                           [&::-webkit-outer-spin-button]:appearance-none
                           [&::-webkit-inner-spin-button]:appearance-none
                           [&::-moz-number-spin-box]:appearance-none"
@@ -248,8 +251,8 @@ const WithdrawalRequest = () => {
                   }}
                   className={`py-2 px-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     usdtAmount == amount
-                      ? 'bg-gray-500 text-white border-2 border-gray-200'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                      ? 'bg-gray-500 text-white border-2 border-gray-200 dark:bg-[#00B3BB] dark:border-[#00B3BB]'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-richblack-800 dark:border-richblack-800 dark:text-richblack-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700'
                   }`}
                 >
                   ${amount}
@@ -260,10 +263,12 @@ const WithdrawalRequest = () => {
 
           {/* Action Buttons */}
           <div className="flex justify-between space-x-3">
-            <button className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            <button className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors
+                  dark:bg-richblack-800 dark:text-richblack-400 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700">
               Cancel
             </button>
-            <button className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+            <button className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors
+                dark:bg-caribbeangreen-400 dark:text-richblack-900 dark:hover:bg-caribbeangreen-500">
               Submit Request
             </button>
           </div>

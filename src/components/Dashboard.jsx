@@ -1,12 +1,42 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Eye, EyeOff, Wallet, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
+import axios from "axios";
+import apis from "../utils/apis"
+import Loader from '../reusable_component/Loader';
 
 export default function Dashboard() {
 
+    const [profile, setProfile] = useState(null);
+    const id = localStorage.getItem("user_id")
+    const [loading, setLoading] = useState(true);
     const [showBalance, setShowBalance] = useState(true);
     const navigate = useNavigate();
+
+    const fetchProfile = async () => {
+    try {
+      const res = await axios.get(`${apis?.get_profile}?user_id=${id}`);
+      // console.log("profile api call", res);
+
+      if (res.data?.status && res.data.profile) {
+        setProfile(res.data.profile);
+        toast.success("Profile fetched successfully!");
+      } else {
+        toast.warning("No profile data found!");
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      toast.error("Failed to fetch profile. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-richblack-900 px-6 py-8">
@@ -17,14 +47,15 @@ export default function Dashboard() {
           <h3 className="text-base font-medium text-gray-900 dark:text-richblack-25">
             Total Transactions
           </h3>
-          <p className="text-3xl font-semibold mt-3 dark:text-richblack-25">4</p>
-          <p className="text-sm text-gray-500 mt-1 dark:text-richblack-400">2 approved</p>
+          <p className="text-3xl font-semibold mt-3 dark:text-richblack-25">{profile?.total_transaction || 0}</p>
+          <p className="text-sm text-gray-500 mt-1 dark:text-richblack-400">{profile?.approve_transaction || 0} approved</p>
         </div>
 
         {/* Total Deposit */}
         <div className="bg-white dark:bg-richblack-800 border border-gray-300 dark:border-richblack-400 rounded-2xl p-6 shadow-sm">
           <h3 className="text-base font-medium text-gray-900 dark:text-richblack-25">Total Deposit</h3>
-          <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+$2,300</p>
+          {/* <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+$2,300</p> */}
+          <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+${profile?.payin || 0}</p>
           <div className='flex justify-end'>
             <button className="text-sm text-gray-600 dark:bg-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
                dark:hover:bg-yellow-100 border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
@@ -34,8 +65,9 @@ export default function Dashboard() {
         {/* Total Withdrawal*/}
         <div className="bg-white dark:bg-richblack-800 border border-gray-300 dark:border-richblack-400 rounded-2xl p-6 shadow-sm">
           <h3 className="text-base font-medium text-gray-900 dark:text-richblack-25">Total Withdrawal</h3>
+          {/* <p className="text-3xl font-semibold text-caribbeangreen-400 mt-3">+$2,300</p> */}
           <p className="text-3xl font-semibold text-caribbeangreen-400 mt-3">
-            +$2,300
+            +${profile?.withdraw || 0}
           </p>
           <div className='flex justify-end'>
             <button className="text-sm text-gray-600 dark:bg-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 dark:hover:bg-yellow-100 hover:text-gray-800 mt-1 border 
@@ -82,11 +114,19 @@ export default function Dashboard() {
           </button>
           <button 
             onClick={() => navigate("/withdrawal-request")}
-            className="bg-white dark:bg-richblack-600 dark:hover:bg-richblack-500 text-black dark:text-richblack-25 rounded-lg py-3 font-medium hover:bg-gray-100 transition cursor-pointer">
+            className="bg-white dark:bg-richblack-600 dark:hover:bg-richblack-500 text-black dark:text-richblack-25 
+                rounded-lg py-3 font-medium hover:bg-gray-100 transition cursor-pointer dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]">
             Withdraw
           </button>
         </div>
       </div>
+      
+      {/* Loader Overlay */}
+      {loading && (
+        <div className="absolute inset-0 bg-richblack-900/80 flex items-center justify-center z-50">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 }

@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <div className='w-screen min-h-screen'>
+      <div className='w-screen min-h-screen dark:bg-richblack-800'>
 
         <Routes>
           {/* <Route path="/" element={<Home/>} /> */}
