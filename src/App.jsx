@@ -8,6 +8,7 @@ import SecureWallet from './pages/SecureWallet';
 import ProfileTabs from './pages/profile/ProfileTabs'
 import EditProfile from './pages/profile/EditProfile';
 import './App.css'
+import QrUsdtPayment from './pages/Deposit/QrUsdtPayment';
 
 function App() {
 
@@ -45,6 +46,12 @@ function App() {
             path='/profile'
             element={<ProfileTabs/>}
           />  
+
+          {/* QrUsdt payment */}
+          <Route 
+            path="/qr-usdt-payment" 
+            element={<QrUsdtPayment />} />
+
         </Routes>
       
       </div>

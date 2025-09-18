@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { useState } from 'react';
-import { ArrowUpRight, ArrowLeft } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TRCImage from "../../assets/walletImage/usdtaddress.png"
 import BEPImage from "../../assets/walletImage/USDT-BEP20.png"
@@ -110,15 +110,12 @@ const WithdrawalRequest = () => {
             <div className="flex mb-3 relative">
               {/* Icon inside input */}
               <div className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6">
-                <img src={Visa} alt="Visa" className="w-full h-full object-contain rounded-lg" />
+                {/* <img src={Visa} alt="Visa" className="w-full h-full object-contain rounded-lg" /> */}
+                <Plus className="w-full h-full object-contain rounded-lg dark:text-richblack-400" />
               </div>
 
-              <input
-                type="text"
-                placeholder="Visa ****2341"
-                className="w-full bg-white border border-gray-200 focus:outline-none text-gray-700 placeholder:text-gray-900 
-                          text-sm font-semibold py-2 pl-12 pr-4 rounded-xl"
-              />
+              <p className="w-full bg-white border border-gray-200 focus:outline-none text-gray-700 placeholder:text-gray-900 dark:bg-richblack-800 dark:border-richblack-800
+                  text-sm font-semibold py-3 pl-12 pr-4 rounded-xl dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] cursor-pointer dark:text-richblack-500">Add New Bank Account</p>
             </div>
           </div>
 

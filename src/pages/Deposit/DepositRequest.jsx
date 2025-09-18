@@ -10,8 +10,7 @@ import Loader from "../../reusable_component/Loader";
 import apis from "../../utils/apis";
 
 const DepositRequest = () => {
-  const userId = localStorage.getItem("user_id")
-  const [activeModal, setActiveModal] = useState(1);
+  const [activeModal, setActiveModal] = useState(0);
   const [selectedAmount, setSelectedAmount] = useState("10"); // New state for selected amount
   // const [usdtAmount, setUsdtAmount] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -43,49 +42,15 @@ const DepositRequest = () => {
     {
       image: TRCImage,
       name: "TRC20",
-      type: 1,
+      type: 0,
     },
 
     {
       image: BEPImage,
       name: "BEP20",
-      type: 2,
+      type: 1,
     },
   ];
-
-  const handleDepositSubmit = async () => {
-    if (!selectedAmount || selectedAmount <= 0) {
-      toast.error("Please enter a valid amount!");
-      return;
-    }
-
-    const payload = {
-      user_id: userId,
-      amount: selectedAmount,
-      deposit_method: activeModal,  // 1 = TRC20, 2 = BEP20
-      hash_id: Math.random().toString(36).substring(2, 12),
-    };
-    console.log("Deposit payload", payload);
-
-    try {
-      setLoading(true); // loader on
-      const res = await axios.post(apis?.deposit_request, payload);
-      console.log("Deposit Api Response", res);
-
-      if (res.data?.success) {
-        toast.success(res?.data?.message || res?.data?.data?.message || "Deposit request submitted successfully!");
-        setSelectedAmount("10");
-        // setUsdtAmount(10);
-      } else {
-        toast.error(res.data?.message || "Failed to submit deposit request!");
-      }
-    } catch (error) {
-      console.error("Deposit API Error:", error);
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false); // loader off
-    }
-  };
 
 
   return (
@@ -109,7 +74,7 @@ const DepositRequest = () => {
       <h2 className="text-xl font-bold text-center dark:text-richblack-5">
         Request Deposit
       </h2>
-      <p className="text-gray-500 dark:text-richblack-400 text-center mt-1 mb-6 font-medium text-[14px] whitespace-nowrap">
+      <p className="text-gray-500 dark:text-richblack-400 text-center mt-1 mb-6 font-medium text-[14px]">
         Submit a deposit request{" "}
         <span className="dark:text-[#47A5C5] italic">
           to transfer funds from your wallet
@@ -131,7 +96,7 @@ const DepositRequest = () => {
               } shadow-md text-bg6`}
             >
               <img
-                className={`w-${item?.type === 2 ? 18 : 30} h-10`}
+                className={`w-${item?.type === 1 ? 18 : 30} h-10`}
                 src={item.image}
                 alt="UPI Payment"
               />
@@ -152,7 +117,7 @@ const DepositRequest = () => {
       </div>
 
       {/* Amount Selection Section - TIT20 tabs */}
-      {activeModal == 1 && (
+      {activeModal == 0 && (
         <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
           {/* Amount Input */}
           <div className="mb-4">
@@ -214,7 +179,10 @@ const DepositRequest = () => {
               Cancel
             </button>
             <button
-              onClick={handleDepositSubmit}
+              onClick={() => {
+                console.log("Navigating with:", selectedAmount, activeModal);
+                navigate("/qr-usdt-payment", { state: { amount: selectedAmount, method: activeModal } });
+              }}
               disabled={loading}
               className={`flex-1 py-3 rounded-lg font-medium transition-colors cursor-pointer 
                 ${loading 
@@ -229,7 +197,7 @@ const DepositRequest = () => {
       )}
 
       {/* Amount Selection Section -  BEP20 tab*/}
-      {activeModal == 2 && (
+      {activeModal == 1 && (
         <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
           {/* Amount Input */}
           <div className="mb-4">
@@ -291,6 +259,10 @@ const DepositRequest = () => {
               Cancel
             </button>
             <button
+            onClick={() => {
+                console.log("Navigating with:", selectedAmount, activeModal);
+                navigate("/qr-usdt-payment", { state: { amount: selectedAmount, method: activeModal } });
+              }}
               className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors dark:bg-caribbeangreen-400
                    dark:text-richblack-900 dark:hover:bg-caribbeangreen-500"
             >
