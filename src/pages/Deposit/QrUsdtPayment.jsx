@@ -127,7 +127,7 @@ const QrUsdtPayment = () => {
               }}
               className="ml-3 p-2 shrink-0 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-richblack-700 dark:hover:bg-richblack-600 transition"
             >
-              <Copy className="w-4 h-4 text-gray-600 dark:text-richblack-200" />
+              <Copy className="w-4 h-4 text-gray-600 dark:text-richblack-200 hover:text-caribbeangreen-400" />
             </button>
           </p>
 
@@ -137,14 +137,14 @@ const QrUsdtPayment = () => {
               htmlFor="utr"
               className="block text-sm font-medium text-gray-700 dark:text-richblack-200 mb-2"
             >
-              Enter UTR No:
+              Enter hash Id:
             </label>
             <input
               type="text"
               id="utr"
               value={utrNo}
               onChange={(e) => setUtrNo(e.target.value)}
-              placeholder="Enter your UTR Number"
+              placeholder="Enter your hash Id"
               className="w-full py-3 px-4 rounded-lg bg-gray-100 dark:bg-richblack-800 border border-gray-300 dark:border-richblack-700 shadow-sm dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]
                 text-sm font-medium text-gray-700 dark:text-richblack-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-richblack-800 transition"
             />

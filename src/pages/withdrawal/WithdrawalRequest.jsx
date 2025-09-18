@@ -1,17 +1,24 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { ArrowUpRight, ArrowLeft, Plus } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, Plus, ChevronDown, ChevronUp, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TRCImage from "../../assets/walletImage/usdtaddress.png"
 import BEPImage from "../../assets/walletImage/USDT-BEP20.png"
 import Visa from "../../assets/addBankImage/visa.jpeg"
+import AddBankAccountDeteils from './AddBankAccountDeteils';
+import axios from "axios";
+import { toast } from "react-toastify";
+import apis from "../../utils/apis";
 
 const WithdrawalRequest = () => {
 
+  const userId = localStorage.getItem("user_id")
+  const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState(1);
   const [selectedAmount, setSelectedAmount] = useState(''); // New state for selected amount
   const [usdtAmount, setUsdtAmount] = useState(10);
+  const [bankDetails, setBankDetails] = useState([]); // 👈 API se data store
   const navigate = useNavigate();
 
 
@@ -50,6 +57,68 @@ const WithdrawalRequest = () => {
       type: 2,
     },
   ]
+
+  // API call to fetch bank details
+    const fetchBankDetails = async () => {
+      try {
+        const res = await axios.get(
+          `https://sudhirtest.mobileappdemo.net/api/bankdetails?user_id=${userId}`
+        );
+        if (res.data.success) {
+          setBankDetails(res.data.data);
+        }
+      } catch (err) {
+        console.error("Error fetching bank details:", err);
+      }
+    };
+
+    useEffect(() => {
+      fetchBankDetails();
+    },[userId])
+
+    // Bank Card Component
+  const BankCard = ({ bank }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div className="bg-white dark:bg-richblack-800 border border-gray-200 dark:border-richblack-700 rounded-lg shadow-sm mb-3 overflow-hidden">
+        <div
+          className="flex items-center justify-between p-1 cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <div className="flex items-center space-x-4">
+            <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full">
+              <CreditCard className="w-5 h-5 text-gray-600 dark:text-yellow-200" />
+            </div>
+            <div className='flex'>
+              <p className="font-semibold text-gray-700 dark:text-richblack-200">
+                {bank.account_name}
+              </p>
+              <p className="text-sm text-gray-500 dark:text-richblack-400">
+                ****{String(bank.account_number).slice(-4)}
+              </p>
+            </div>
+          </div>
+          {isOpen ? (
+            <ChevronUp className="w-5 h-5 text-gray-500" />
+          ) : (
+            <ChevronDown className="w-5 h-5 text-gray-500" />
+          )}
+        </div>
+
+        {/* Dropdown Details */}
+        {isOpen && (
+          <div className="p-3 border-t border-gray-200 dark:border-richblack-700 text-sm text-gray-600 dark:text-richblack-300 space-y-1">
+            <p><span className="font-medium">Account No:</span> {bank.account_number}</p>
+            <p><span className="font-medium">Branch:</span> {bank.bank_branch}</p>
+            <p><span className="font-medium">IFSC:</span> {bank.ifsc_code}</p>
+            <p><span className="font-medium">IBAN:</span> {bank.IBAN_number}</p>
+          </div>
+        )}
+      </div>
+    );
+  };
+
 
   return (
     <div className="bg-white dark:bg-richblack-900 max-w-md mx-auto rounded-2xl shadow-lg p-6">
@@ -99,6 +168,7 @@ const WithdrawalRequest = () => {
       {/* Amount Selection Section - TIT20 tabs */}
       {(activeModal == 1) && (
         <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
+
           {/* {add bank details} */}
           <div className='flex flex-col'>
             <div className='flex justify-between items-center mb-3'>
@@ -107,17 +177,29 @@ const WithdrawalRequest = () => {
                  cursor-pointer shadow-sm dark:text-richblack-400 dark:bg-richblack-800 dark:border-richblack-800 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]
                       dark:hover:bg-richblack-700 dark:hover:text-richblack-400'>View More</div>
             </div>
-            <div className="flex mb-3 relative">
-              {/* Icon inside input */}
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6">
-                {/* <img src={Visa} alt="Visa" className="w-full h-full object-contain rounded-lg" /> */}
-                <Plus className="w-full h-full object-contain rounded-lg dark:text-richblack-400" />
-              </div>
 
-              <p className="w-full bg-white border border-gray-200 focus:outline-none text-gray-700 placeholder:text-gray-900 dark:bg-richblack-800 dark:border-richblack-800
-                  text-sm font-semibold py-3 pl-12 pr-4 rounded-xl dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] cursor-pointer dark:text-richblack-500">Add New Bank Account</p>
-            </div>
+            {/* Bank List */}
+      <div className="mt-2">
+        {bankDetails.length > 0 ? (
+          bankDetails.map((bank, index) => <BankCard key={index} bank={bank} />)
+        ) : (
+          <p className="text-gray-500 dark:text-richblack-400 text-sm">No bank details found</p>
+        )}
+      </div>
+      {/* Add Bank */}
+        <div
+          className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
+          onClick={() => setShowModal(true)}
+        >
+          <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
+            <Plus className="w-5 h-5 text-gray-600 dark:text-richblack-300" />
           </div>
+          <p className="text-gray-700 dark:text-richblack-300 font-medium">Add New Bank Account</p>
+        </div>
+
+      {/* Modal */}
+      {showModal && <AddBankAccountDeteils setShowModal={setShowModal} />}
+    </div>
 
           {/* Amount Input */}
            <div className="mb-4">
@@ -194,19 +276,18 @@ const WithdrawalRequest = () => {
                  cursor-pointer shadow-sm dark:text-richblack-400 dark:bg-richblack-800 dark:border-richblack-800 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]
                       dark:hover:bg-richblack-700 dark:hover:text-richblack-400'>View More</div>
             </div>
-            <div className="flex mb-3 relative">
+            {/* add bank details */}
+            <div className="flex mb-3 relative" onClick={() => setShowModal(true)}>
               {/* Icon inside input */}
               <div className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6">
-                <img src={Visa} alt="Visa" className="w-full h-full object-contain rounded-lg" />
+                <Plus className="w-full h-full object-contain rounded-lg dark:text-richblack-400" />
               </div>
 
-              <input
-                type="text"
-                placeholder="Visa ****2341"
-                className="w-full bg-white border border-gray-200 focus:outline-none text-gray-700 placeholder:text-gray-900 
-                          text-sm font-semibold py-2 pl-12 pr-4 rounded-xl"
-              />
+              <p className="w-full bg-white border border-gray-200 focus:outline-none text-gray-700 placeholder:text-gray-900 dark:bg-richblack-800 dark:border-richblack-800
+                  text-sm font-semibold py-3 pl-12 pr-4 rounded-xl dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] cursor-pointer dark:text-richblack-500">Add New Bank Account</p>
             </div>
+             {/* Modal */}
+             {showModal && <AddBankAccountDeteils setShowModal={setShowModal} />}
           </div>
 
           {/* Amount Input */}

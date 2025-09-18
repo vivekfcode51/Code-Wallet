@@ -16,6 +16,12 @@ const apis = {
   // deposit api
   deposit_request:`${configModalUsaWin}deposit_request`,
 
+  // add bank account details
+  bankdetails:`${configModalUsaWin}bankdetails`,
+  add_bank_account:`${configModalUsaWin}add_bank_account`,
+
+
+
 
 }
 
