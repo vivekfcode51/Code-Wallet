@@ -1,26 +1,33 @@
-
-import React, { useEffect } from 'react'
-import { useState } from 'react';
-import { ArrowUpRight, ArrowLeft, Plus, ChevronDown, ChevronUp, CreditCard } from "lucide-react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import {
+  ArrowUpRight,
+  ArrowLeft,
+  Plus,
+  ChevronDown,
+  ChevronUp,
+  CreditCard,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import TRCImage from "../../assets/walletImage/usdtaddress.png"
-import BEPImage from "../../assets/walletImage/USDT-BEP20.png"
-import Visa from "../../assets/addBankImage/visa.jpeg"
-import AddBankAccountDeteils from './AddBankAccountDeteils';
+import TRCImage from "../../assets/walletImage/usdtaddress.png";
+import BEPImage from "../../assets/walletImage/USDT-BEP20.png";
+import Visa from "../../assets/addBankImage/visa.jpeg";
+import AddBankAccountDeteils from "./AddBankAccountDeteils";
 import axios from "axios";
 import { toast } from "react-toastify";
 import apis from "../../utils/apis";
 
 const WithdrawalRequest = () => {
-
-  const userId = localStorage.getItem("user_id")
+  const userId = localStorage.getItem("user_id");
   const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState(1);
-  const [selectedAmount, setSelectedAmount] = useState(''); // New state for selected amount
+  // New State
+  const [selectedBankId, setSelectedBankId] = useState(null);
+  const [selectedAmount, setSelectedAmount] = useState(""); // New state for selected amount
+  const [showAll, setShowAll] = useState(false);
   const [usdtAmount, setUsdtAmount] = useState(10);
   const [bankDetails, setBankDetails] = useState([]); // 👈 API se data store
   const navigate = useNavigate();
-
 
   const toggleModal = (modalType) => {
     setActiveModal(modalType);
@@ -41,7 +48,7 @@ const WithdrawalRequest = () => {
   // Validation function (you can implement as needed)
   const validateAmount = (amount) => {
     // Add your validation logic here
-    console.log('Validating amount:', amount);
+    console.log("Validating amount:", amount);
   };
 
   const payMethod = [
@@ -56,32 +63,39 @@ const WithdrawalRequest = () => {
       name: "BEP20",
       type: 2,
     },
-  ]
+  ];
 
   // API call to fetch bank details
-    const fetchBankDetails = async () => {
-      try {
-        const res = await axios.get(
-          `https://sudhirtest.mobileappdemo.net/api/bankdetails?user_id=${userId}`
-        );
-        if (res.data.success) {
-          setBankDetails(res.data.data);
-        }
-      } catch (err) {
-        console.error("Error fetching bank details:", err);
+  const fetchBankDetails = async () => {
+    try {
+      const res = await axios.get(
+        `https://sudhirtest.mobileappdemo.net/api/bankdetails?user_id=${userId}`
+      );
+      if (res.data.success) {
+        setBankDetails(res.data.data);
       }
-    };
+    } catch (err) {
+      console.error("Error fetching bank details:", err);
+    }
+  };
 
-    useEffect(() => {
-      fetchBankDetails();
-    },[userId])
+  useEffect(() => {
+    fetchBankDetails();
+  }, [userId]);
 
-    // Bank Card Component
+  // Bank Card Component
   const BankCard = ({ bank }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <div className="bg-white dark:bg-richblack-800 border border-gray-200 dark:border-richblack-700 rounded-lg shadow-sm mb-3 overflow-hidden">
+      <div
+        onClick={() => setSelectedBankId(bank.id)} // ✅ update selected
+        className={`bg-white dark:bg-richblack-800 rounded-lg shadow-sm dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] mb-3 overflow-hidden cursor-pointer ${
+          selectedBankId === bank.id
+            ? "border-gray-200 dark:border-richblack-800"
+            : "border-gray-200 dark:border-richblack-700"
+        }`}
+      >
         <div
           className="flex items-center justify-between p-1 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
@@ -90,7 +104,7 @@ const WithdrawalRequest = () => {
             <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full">
               <CreditCard className="w-5 h-5 text-gray-600 dark:text-yellow-200" />
             </div>
-            <div className='flex'>
+            <div className="flex">
               <p className="font-semibold text-gray-700 dark:text-richblack-200">
                 {bank.account_name}
               </p>
@@ -109,27 +123,35 @@ const WithdrawalRequest = () => {
         {/* Dropdown Details */}
         {isOpen && (
           <div className="p-3 border-t border-gray-200 dark:border-richblack-700 text-sm text-gray-600 dark:text-richblack-300 space-y-1">
-            <p><span className="font-medium">Account No:</span> {bank.account_number}</p>
-            <p><span className="font-medium">Branch:</span> {bank.bank_branch}</p>
-            <p><span className="font-medium">IFSC:</span> {bank.ifsc_code}</p>
-            <p><span className="font-medium">IBAN:</span> {bank.IBAN_number}</p>
+            <p>
+              <span className="font-medium">Account No:</span>{" "}
+              {bank.account_number}
+            </p>
+            <p>
+              <span className="font-medium">Branch:</span> {bank.bank_branch}
+            </p>
+            <p>
+              <span className="font-medium">IFSC:</span> {bank.ifsc_code}
+            </p>
+            <p>
+              <span className="font-medium">IBAN:</span> {bank.IBAN_number}
+            </p>
           </div>
         )}
       </div>
     );
   };
 
-
   return (
     <div className="bg-white dark:bg-richblack-900 max-w-md mx-auto rounded-2xl shadow-lg p-6">
-    {/* Back Arrow */}
+      {/* Back Arrow */}
       <button
-        onClick={() => navigate(-1)}   // 👈 back le jayega
+        onClick={() => navigate(-1)} // 👈 back le jayega
         className=" p-1 rounded-full hover:bg-gray-100 dark:hover:bg-richblack-700 dark:bg-richblack-800 flex justify-start"
       >
-        <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400" />
+        <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400 dark:hover:text-blue-400" />
       </button>
-     {/* Icon */}
+      {/* Icon */}
       <div className="flex justify-center mb-4">
         <div className="bg-blue-100 p-4 rounded-full">
           <ArrowUpRight className="w-6 h-6 text-blue-600" />
@@ -137,14 +159,20 @@ const WithdrawalRequest = () => {
       </div>
 
       {/* Title */}
-      <h2 className="text-xl font-semibold text-center dark:text-richblack-5">Request Withdrawal</h2>
+      <h2 className="text-xl font-semibold text-center dark:text-richblack-5">
+        Request Withdrawal
+      </h2>
       <p className="text-gray-500 dark:text-richblack-400 text-center text-[14px] mt-1 mb-6">
-        Submit a withdrawal request <span className='dark:text-[#47A5C5] italic'>to transfer funds from your wallet</span>
+        Submit a withdrawal request{" "}
+        <span className="dark:text-[#47A5C5] italic">
+          to transfer funds from your wallet
+        </span>
       </p>
 
       {/* Switch Tab - Improved alignment */}
       {/* switch tab */}
-      <div className="w-full grid grid-cols-3 gap-3 mt-2">
+      <div className="ml-4">
+        <div className="w-full grid grid-cols-3 gap-3 mt-2">
         {payMethod &&
           payMethod?.map((item, i) => (
             <div
@@ -156,60 +184,126 @@ const WithdrawalRequest = () => {
                   : "bg-gray-100 dark:bg-richblack-800 dark:text-richblack-400 text-gray dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]"
               } shadow-md text-bg6`}
             >
-              <img className={`w-${item?.type===2?18:30} h-10`} src={item.image} alt="UPI Payment" />
-                  <div className="font-serif">
-                    <p className={`${item?.type == activeModal ? "text-nowrap text-[12px] text-white font-semibold" : "text-gray-500 text-[12px]" }`}>{item?.name}</p>
-                    {/* <p className={`${item?.type == activeModal ? "text-nowrap text-white font-semibold" : "text-bg6" }`}>Payment</p> */}
-                  </div>
+              <img
+                className={`w-${item?.type === 2 ? 18 : 30} h-10`}
+                src={item.image}
+                alt="UPI Payment"
+              />
+              <div className="font-serif">
+                <p
+                  className={`${
+                    item?.type == activeModal
+                      ? "text-nowrap text-[12px] text-white font-semibold"
+                      : "text-gray-500 text-[12px]"
+                  }`}
+                >
+                  {item?.name}
+                </p>
+                {/* <p className={`${item?.type == activeModal ? "text-nowrap text-white font-semibold" : "text-bg6" }`}>Payment</p> */}
+              </div>
             </div>
           ))}
       </div>
+      </div>
 
       {/* Amount Selection Section - TIT20 tabs */}
-      {(activeModal == 1) && (
+      {activeModal == 1 && (
         <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
-
           {/* {add bank details} */}
-          <div className='flex flex-col'>
-            <div className='flex justify-between items-center mb-3'>
-              <div className='text-gray-700 font-semibold'>Bank Cards</div>
-              <div className='text-[12px] text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg 
-                 cursor-pointer shadow-sm dark:text-richblack-400 dark:bg-richblack-800 dark:border-richblack-800 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]
-                      dark:hover:bg-richblack-700 dark:hover:text-richblack-400'>View More</div>
+          {/* Bank Cards Section */}
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center mb-3">
+              <div className="text-gray-700 font-semibold dark:text-richblack-200">
+                Bank Cards
+              </div>
+
+              {/* View More logic */}
+              {bankDetails.length > 0 && (
+                <div
+                  onClick={() => setShowAll(!showAll)}
+                  className="text-[12px] text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg cursor-pointer shadow-sm dark:text-richblack-400 dark:hover:text-richblack-200 dark:hover:bg-richblack-700 dark:bg-richblack-800 dark:border-richblack-800"
+                >
+                  {showAll ? "View Less" : "View More"}
+                </div>
+              )}
             </div>
 
-            {/* Bank List */}
-      <div className="mt-2">
-        {bankDetails.length > 0 ? (
-          bankDetails.map((bank, index) => <BankCard key={index} bank={bank} />)
-        ) : (
-          <p className="text-gray-500 dark:text-richblack-400 text-sm">No bank details found</p>
-        )}
-      </div>
-      {/* Add Bank */}
-        <div
-          className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
-          onClick={() => setShowModal(true)}
-        >
-          <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
-            <Plus className="w-5 h-5 text-gray-600 dark:text-richblack-300" />
-          </div>
-          <p className="text-gray-700 dark:text-richblack-300 font-medium">Add New Bank Account</p>
-        </div>
+            <div className="mt-2">
+              {/* CASE 1: No banks */}
+              {bankDetails.length === 0 && (
+                <div
+                  className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-dashed border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
+                  onClick={() => setShowModal(true)}
+                >
+                  <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
+                    <Plus className="w-4 h-4 text-gray-600 dark:text-richblack-300" />
+                  </div>
+                  <p className="text-gray-700 dark:text-richblack-300 font-medium text-[14px]">
+                    Add New Bank Account
+                  </p>
+                </div>
+              )}
 
-      {/* Modal */}
-      {showModal && <AddBankAccountDeteils setShowModal={setShowModal} />}
-    </div>
+              {/* CASE 2: One bank */}
+              {bankDetails.length === 1 && (
+                <>
+                  <BankCard bank={bankDetails[0]} />
+                  {showAll && (
+                    <div>
+                      {/* Add New */}
+                      <div
+                        className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-dashed border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
+                        onClick={() => setShowModal(true)}
+                      >
+                        <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
+                          <Plus className="w-4 h-4 text-gray-600 dark:text-richblack-300" />
+                        </div>
+                        <p className="text-gray-700 dark:text-richblack-300 font-medium text-[14px]">
+                          Add New Bank Account
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* CASE 3: Multiple banks */}
+              {bankDetails.length > 1 && (
+                <>
+                  {(showAll ? bankDetails : bankDetails.slice(0, 1)).map(
+                    (bank) => (
+                      <BankCard key={bank.id} bank={bank} />
+                    )
+                  )}
+                  {/* Add New always visible */}
+                  <div
+                    className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-dashed border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
+                    onClick={() => setShowModal(true)}
+                  >
+                    <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
+                      <Plus className="w-4 h-4 text-gray-600 dark:text-richblack-300" />
+                    </div>
+                    <p className="text-gray-700 dark:text-richblack-300 font-medium text-[14px]">
+                      Add New Bank Account
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Modal */}
+            {showModal && <AddBankAccountDeteils setShowModal={setShowModal} />}
+          </div>
 
           {/* Amount Input */}
-           <div className="mb-4">
+          <div className="mb-4">
             <div className="flex items-center bg-gray-200 dark:bg-richblack-800 w-full rounded-lg  dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] p-2">
               <div className="flex items-center justify-center text-lg font-bold text-gray-600 mr-3 dark:text-richblack-200">
                 $
               </div>
               <div className="w-[1px] bg-gray-300 dark:bg-richblack-400 h-5 mr-3"></div>
               <input
-                value={usdtAmount || ''}
+                value={usdtAmount || ""}
                 onChange={(e) => {
                   const numericAmount = Number(e.target.value);
                   setUsdtAmount(e.target.value);
@@ -227,8 +321,10 @@ const WithdrawalRequest = () => {
           </div>
 
           {/* Quick Amount Selection Buttons */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-600 mb-2 font-semibold">Quick Select Amount:</p>
+          {/* <div className="mb-4">
+            <p className="text-sm text-gray-600 mb-2 font-semibold">
+              Quick Select Amount:
+            </p>
             <div className="grid grid-cols-4 gap-2">
               {[10, 50, 100, 500, 1000, 2000, 5000, 10000].map((amount) => (
                 <button
@@ -240,65 +336,132 @@ const WithdrawalRequest = () => {
                   }}
                   className={`py-2 px-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     usdtAmount == amount
-                      ? 'bg-gray-500 text-white border-2 border-gray-200 dark:bg-[#00B3BB] dark:border-[#00B3BB]'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-richblack-800 dark:border-richblack-800 dark:text-richblack-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700'
+                      ? "bg-gray-500 text-white border-2 border-gray-200 dark:bg-[#00B3BB] dark:border-[#00B3BB]"
+                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-richblack-800 dark:border-richblack-800 dark:text-richblack-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700"
                   }`}
                 >
                   ${amount}
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
           <div className="flex justify-between space-x-3">
-            <button className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors
-                  dark:bg-richblack-800 dark:text-richblack-400 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700">
+            <button
+              className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors
+                  dark:bg-richblack-800 dark:text-richblack-400 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700"
+            >
               Cancel
             </button>
-            <button className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors
-                dark:bg-caribbeangreen-400 dark:text-richblack-900 dark:hover:bg-caribbeangreen-500">
+            <button
+              className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors
+                dark:bg-caribbeangreen-400 dark:text-richblack-900 dark:hover:bg-caribbeangreen-500"
+            >
               Submit Request
             </button>
           </div>
         </div>
       )}
-
 
       {/* Amount Selection Section -  BEP20 tab*/}
-      {(activeModal == 2) && (
-       <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
+      {activeModal == 2 && (
+        <div className="bg-gray-50 dark:bg-richblack-900 rounded-lg p-4 shadow-sm">
           {/* {add bank details} */}
-          <div className='flex flex-col'>
-            <div className='flex justify-between items-center mb-3'>
-              <div className='text-gray-700 font-semibold'>Bank Cards</div>
-              <div className='text-[12px] text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg 
-                 cursor-pointer shadow-sm dark:text-richblack-400 dark:bg-richblack-800 dark:border-richblack-800 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]
-                      dark:hover:bg-richblack-700 dark:hover:text-richblack-400'>View More</div>
-            </div>
-            {/* add bank details */}
-            <div className="flex mb-3 relative" onClick={() => setShowModal(true)}>
-              {/* Icon inside input */}
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6">
-                <Plus className="w-full h-full object-contain rounded-lg dark:text-richblack-400" />
+           {/* Bank Cards Section */}
+          <div className="flex flex-col">
+            <div className="flex justify-between items-center mb-3">
+              <div className="text-gray-700 font-semibold dark:text-richblack-200">
+                Bank Cards
               </div>
 
-              <p className="w-full bg-white border border-gray-200 focus:outline-none text-gray-700 placeholder:text-gray-900 dark:bg-richblack-800 dark:border-richblack-800
-                  text-sm font-semibold py-3 pl-12 pr-4 rounded-xl dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] cursor-pointer dark:text-richblack-500">Add New Bank Account</p>
+              {/* View More logic */}
+              {bankDetails.length > 0 && (
+                <div
+                  onClick={() => setShowAll(!showAll)}
+                  className="text-[12px] text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg cursor-pointer shadow-sm dark:text-richblack-400 dark:hover:text-richblack-200 dark:bg-richblack-800 dark:hover:bg-richblack-700 dark:border-richblack-800"
+                >
+                  {showAll ? "View Less" : "View More"}
+                </div>
+              )}
             </div>
-             {/* Modal */}
-             {showModal && <AddBankAccountDeteils setShowModal={setShowModal} />}
+
+            <div className="mt-2">
+              {/* CASE 1: No banks */}
+              {bankDetails.length === 0 && (
+                <div
+                  className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-dashed border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
+                  onClick={() => setShowModal(true)}
+                >
+                  <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
+                    <Plus className="w-4 h-4 text-gray-600 dark:text-richblack-300" />
+                  </div>
+                  <p className="text-gray-700 dark:text-richblack-300 font-medium text-[14px]">
+                    Add New Bank Account
+                  </p>
+                </div>
+              )}
+
+              {/* CASE 2: One bank */}
+              {bankDetails.length === 1 && (
+                <>
+                  <BankCard bank={bankDetails[0]} />
+                  {showAll && (
+                    <div>
+                      {/* Add New */}
+                      <div
+                        className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-dashed border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
+                        onClick={() => setShowModal(true)}
+                      >
+                        <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
+                          <Plus className="w-4 h-4 text-gray-600 dark:text-richblack-300" />
+                        </div>
+                        <p className="text-gray-700 dark:text-richblack-300 font-medium text-[14px]">
+                          Add New Bank Account
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* CASE 3: Multiple banks */}
+              {bankDetails.length > 1 && (
+                <>
+                  {(showAll ? bankDetails : bankDetails.slice(0, 1)).map(
+                    (bank) => (
+                      <BankCard key={bank.id} bank={bank} />
+                    )
+                  )}
+                  {/* Add New always visible */}
+                  <div
+                    className="mb-2 flex items-center bg-white dark:bg-richblack-800 border border-dashed border-gray-200 dark:border-richblack-700 p-1 rounded-lg cursor-pointer"
+                    onClick={() => setShowModal(true)}
+                  >
+                    <div className="bg-gray-200 dark:bg-richblack-700 p-2 rounded-full mr-3">
+                      <Plus className="w-4 h-4 text-gray-600 dark:text-richblack-300" />
+                    </div>
+                    <p className="text-gray-700 dark:text-richblack-300 font-medium text-[14px]">
+                      Add New Bank Account
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Modal */}
+            {showModal && <AddBankAccountDeteils setShowModal={setShowModal} />}
           </div>
 
           {/* Amount Input */}
-           <div className="mb-4">
+          <div className="mb-4">
             <div className="flex items-center bg-gray-200 dark:bg-richblack-800 w-full rounded-lg  dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] p-2">
               <div className="flex items-center justify-center text-lg font-bold text-gray-600 mr-3 dark:text-richblack-200">
                 $
               </div>
               <div className="w-[1px] bg-gray-300 dark:bg-richblack-400 h-5 mr-3"></div>
               <input
-                value={usdtAmount || ''}
+                value={usdtAmount || ""}
                 onChange={(e) => {
                   const numericAmount = Number(e.target.value);
                   setUsdtAmount(e.target.value);
@@ -316,8 +479,10 @@ const WithdrawalRequest = () => {
           </div>
 
           {/* Quick Amount Selection Buttons */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-600 mb-2 font-semibold">Quick Select Amount:</p>
+          {/* <div className="mb-4">
+            <p className="text-sm text-gray-600 mb-2 font-semibold">
+              Quick Select Amount:
+            </p>
             <div className="grid grid-cols-4 gap-2">
               {[10, 50, 100, 500, 1000, 2000, 5000, 10000].map((amount) => (
                 <button
@@ -329,31 +494,35 @@ const WithdrawalRequest = () => {
                   }}
                   className={`py-2 px-2 rounded-lg text-xs font-medium transition-all duration-200 ${
                     usdtAmount == amount
-                      ? 'bg-gray-500 text-white border-2 border-gray-200 dark:bg-[#00B3BB] dark:border-[#00B3BB]'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-richblack-800 dark:border-richblack-800 dark:text-richblack-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700'
+                      ? "bg-gray-500 text-white border-2 border-gray-200 dark:bg-[#00B3BB] dark:border-[#00B3BB]"
+                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 dark:bg-richblack-800 dark:border-richblack-800 dark:text-richblack-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700"
                   }`}
                 >
                   ${amount}
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
           <div className="flex justify-between space-x-3">
-            <button className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors
-                  dark:bg-richblack-800 dark:text-richblack-400 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700">
+            <button
+              className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors
+                  dark:bg-richblack-800 dark:text-richblack-400 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] dark:hover:bg-richblack-700"
+            >
               Cancel
             </button>
-            <button className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors
-                dark:bg-caribbeangreen-400 dark:text-richblack-900 dark:hover:bg-caribbeangreen-500">
+            <button
+              className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors
+                dark:bg-caribbeangreen-400 dark:text-richblack-900 dark:hover:bg-caribbeangreen-500"
+            >
               Submit Request
             </button>
           </div>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default WithdrawalRequest
+export default WithdrawalRequest;

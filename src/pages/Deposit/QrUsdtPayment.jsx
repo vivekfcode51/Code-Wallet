@@ -92,7 +92,7 @@ const QrUsdtPayment = () => {
         onClick={() => navigate(-1)}
         className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-richblack-700 dark:bg-richblack-800 flex justify-start"
       >
-        <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400" />
+        <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400 dark:hover:text-blue-400" />
       </button>
 
       <h2 className="text-xl font-bold text-center dark:text-richblack-5">

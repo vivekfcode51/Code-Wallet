@@ -54,14 +54,16 @@ const DepositRequest = () => {
 
 
   return (
-    <div className="bg-white dark:bg-richblack-900 max-w-md mx-auto rounded-2xl shadow-lg p-6">
+    <div className="bg-white dark:bg-richblack-900 h-screen max-w-md mx-auto rounded-2xl shadow-lg p-6">
       {/* Back Arrow */}
-      <button
+      <button 
         onClick={() => navigate(-1)} // 👈 back le jayega
         className=" p-1 rounded-full hover:bg-gray-100 dark:hover:bg-richblack-700 dark:bg-richblack-800 flex justify-start"
       >
-        <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400" />
+        <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400 dark:hover:text-blue-400" />
       </button>
+      
+      <div className="mt-5">
 
       {/* Icon */}
       <div className="flex justify-center mb-4">
@@ -83,7 +85,8 @@ const DepositRequest = () => {
 
       {/* Switch Tab - Improved alignment */}
       {/* switch tab */}
-      <div className="w-full grid grid-cols-3 gap-3 mt-2">
+      <div className="ml-4">
+        <div className="w-full grid grid-cols-3 gap-3 mt-2">
         {payMethod &&
           payMethod?.map((item, i) => (
             <div
@@ -115,6 +118,7 @@ const DepositRequest = () => {
             </div>
           ))}
       </div>
+      </div>
 
       {/* Amount Selection Section - TIT20 tabs */}
       {activeModal == 0 && (
@@ -145,7 +149,7 @@ const DepositRequest = () => {
           </div>
 
           {/* Quick Amount Selection Buttons */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <p className="text-sm text-gray-600 mb-2 font-semibold">
               Quick Select Amount:
             </p>
@@ -168,7 +172,7 @@ const DepositRequest = () => {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
           <div className="flex justify-between space-x-3">
@@ -225,7 +229,7 @@ const DepositRequest = () => {
           </div>
 
           {/* Quick Amount Selection Buttons */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <p className="text-sm text-gray-600 mb-2 font-semibold">
               Quick Select Amount:
             </p>
@@ -248,7 +252,7 @@ const DepositRequest = () => {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
           <div className="flex justify-between space-x-3">
@@ -279,6 +283,7 @@ const DepositRequest = () => {
         </div>
       )}
 
+    </div>
     </div>
   );
 };
