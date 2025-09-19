@@ -18,7 +18,7 @@ export default function Dashboard() {
     const fetchProfile = async () => {
     try {
       const res = await axios.get(`${apis?.get_profile}?user_id=${id}`);
-      // console.log("profile api call", res);
+      console.log("profile api call", res);
 
       if (res.data?.status && res.data.profile) {
         setProfile(res.data.profile);
@@ -57,8 +57,12 @@ export default function Dashboard() {
           {/* <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+$2,300</p> */}
           <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+${profile?.payin || 0}</p>
           <div className='flex justify-end'>
-            <button className="text-sm text-gray-600 dark:bg-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
-               dark:hover:bg-yellow-100 border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
+            <button 
+              onClick={() => navigate("/deposit-transactions")}
+              className="text-sm text-gray-600 dark:bg-yellow-50 dark:border-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
+                dark:hover:bg-yellow-100 border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">
+              View
+            </button>
           </div>
         </div>
 
@@ -70,8 +74,12 @@ export default function Dashboard() {
             +${profile?.withdraw || 0}
           </p>
           <div className='flex justify-end'>
-            <button className="text-sm text-gray-600 dark:bg-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 dark:hover:bg-yellow-100 hover:text-gray-800 mt-1 border 
-             border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">View</button>
+            <button 
+              onClick={() => navigate("/withdrawal-transactions")}
+              className="text-sm text-gray-600 dark:bg-yellow-50 dark:border-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 dark:hover:bg-yellow-100 hover:text-gray-800 mt-1 border 
+                border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">
+              View
+            </button>
           </div>
         </div>
       </div>
@@ -97,7 +105,7 @@ export default function Dashboard() {
         <div>
           <p className="text-sm text-gray-300">Available Balance</p>
           <p className="text-4xl font-bold mt-1">
-            {showBalance ? "•••••••" : "$2,547.83"}
+            {showBalance ? "•••••••" : `$${profile?.wallet ?? 0}`}
           </p>
           <div className="flex items-center space-x-2 mt-2 text-sm text-gray-300">
             <TrendingUp className="w-4 h-4 dark:text-green-400" />

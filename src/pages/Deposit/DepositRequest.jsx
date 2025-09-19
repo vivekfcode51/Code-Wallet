@@ -54,7 +54,7 @@ const DepositRequest = () => {
 
 
   return (
-    <div className="bg-white dark:bg-richblack-900 h-screen max-w-md mx-auto rounded-2xl shadow-lg p-6">
+    <div className="bg-white dark:bg-richblack-900 min-h-screen max-w-md mx-auto rounded-2xl shadow-lg p-6">
       {/* Back Arrow */}
       <button 
         onClick={() => navigate(-1)} // 👈 back le jayega

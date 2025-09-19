@@ -143,7 +143,7 @@ const WithdrawalRequest = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-richblack-900 max-w-md mx-auto rounded-2xl shadow-lg p-6">
+    <div className="bg-white dark:bg-richblack-900 max-w-md min-h-screen mx-auto rounded-2xl shadow-lg p-6">
       {/* Back Arrow */}
       <button
         onClick={() => navigate(-1)} // 👈 back le jayega

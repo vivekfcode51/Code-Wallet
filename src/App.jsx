@@ -9,6 +9,8 @@ import ProfileTabs from './pages/profile/ProfileTabs'
 import EditProfile from './pages/profile/EditProfile';
 import './App.css'
 import QrUsdtPayment from './pages/Deposit/QrUsdtPayment';
+import TotalDepositTransition from './pages/Deposit/TotalDepositTransition';
+import TotalWithdrawalTransition from './pages/withdrawal/TotalWithdrawalTransition';
 
 function App() {
 
@@ -51,6 +53,18 @@ function App() {
           <Route 
             path="/qr-usdt-payment" 
             element={<QrUsdtPayment />} />
+
+          {/* TotalDepositTransition */}
+          <Route 
+            path="/deposit-transactions" 
+            element={<TotalDepositTransition />} 
+          />
+
+          {/* TotalWithdrawalTransition */}
+          <Route 
+            path="/withdrawal-transactions" 
+            element={<TotalWithdrawalTransition />} 
+          />
 
         </Routes>
       
