@@ -5,6 +5,9 @@ import { Clock, CircleCheckBig, X, ArrowLeft } from "lucide-react";
 import { getTransactionMeta } from "../../reusable_component/GetTransactionMeta ";
 import { useNavigate } from "react-router-dom";
 import apis from "../../utils/apis";
+import TRC20Image from "../../assets/walletImage/usdtaddress.png";
+import BEP20Image from "../../assets/walletImage/USDT-BEP20.png";
+
 
 const TotalWithdrawalTransition = () => {
   const [transactions, setTransactions] = useState([]);
@@ -60,9 +63,14 @@ const TotalWithdrawalTransition = () => {
                 <div className="flex items-start space-x-3">
                   <div>{icon}</div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-richblack-25">
-                      Transaction #{tx.hash_id}
-                    </p>
+                     <p className="font-medium text-gray-900 dark:text-richblack-25">
+                        {tx["Payment type name"] 
+                            ? tx["Payment type name"] 
+                            : tx.type === 0 
+                            ? "TRC20" 
+                            : "BEP20"
+                        }
+                      </p>
                     <p className="text-sm text-gray-500 dark:text-richblack-400">
                       {tx.created_at}
                     </p>
@@ -71,9 +79,15 @@ const TotalWithdrawalTransition = () => {
 
                 {/* Right */}
                 <div className="flex flex-col items-center">
-                  <span className={`font-semibold mb-1 ${amountColor}`}>
-                    -${tx.amount}
+                  <span className={`font-semibold mb-1 ${amountColor} flex items-center gap-1`}>
+                    <img 
+                      src={tx.type === 0 ? TRC20Image : BEP20Image} 
+                      alt={tx.type === 0 ? "TRC20" : "BEP20Image"} 
+                      className="w-4 h-4 inline-block ml-1"
+                    />
+                    -{tx.amount}
                   </span>
+
                   <span
                     className={`px-3 py-1 text-[12px] font-medium rounded-xl flex items-center space-x-1 ${statusColor}
                       shadow-md hover:shadow-lg transition-transform duration-200 hover:scale-105 cursor-pointer mr-1`}

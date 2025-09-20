@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import axios from "axios";
 import apis from "../utils/apis"
 import Loader from '../reusable_component/Loader';
+import UsdtImage from "../assets/walletImage/UsdtImage.png"
 
 export default function Dashboard() {
 
@@ -49,14 +50,25 @@ export default function Dashboard() {
           </h3>
           <p className="text-3xl font-semibold mt-3 dark:text-richblack-25">{profile?.total_transaction || 0}</p>
           <p className="text-sm text-gray-500 mt-1 dark:text-richblack-400">{profile?.approve_transaction || 0} approved</p>
+          <div className='flex justify-end'>
+            <button 
+              onClick={() => navigate("/wallet/total-transactions")}
+              className="text-sm text-gray-600 dark:bg-yellow-50 dark:border-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
+                dark:hover:bg-yellow-100 border-gray-200 dark:hover:border-yellow-50 px-4 py-2 rounded-lg cursor-pointer shadow-sm">
+              View
+            </button>
+          </div>
         </div>
 
         {/* Total Deposit */}
         <div className="bg-white dark:bg-richblack-800 border border-gray-300 dark:border-richblack-400 rounded-2xl p-6 shadow-sm">
           <h3 className="text-base font-medium text-gray-900 dark:text-richblack-25">Total Deposit</h3>
           {/* <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+$2,300</p> */}
-          <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300">+${profile?.payin || 0}</p>
-          <div className='flex justify-end'>
+          <p className="text-3xl font-semibold mt-3 dark:text-caribbeangreen-300 flex items-center gap-2">
+            <img src={UsdtImage} alt="USDT" className="w-8 h-8 mt-2" />
+            +{profile?.payin || 0}
+          </p>
+          <div className='flex justify-end mt-5'>
             <button 
               onClick={() => navigate("/deposit-transactions")}
               className="text-sm text-gray-600 dark:bg-yellow-50 dark:border-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border
@@ -70,10 +82,12 @@ export default function Dashboard() {
         <div className="bg-white dark:bg-richblack-800 border border-gray-300 dark:border-richblack-400 rounded-2xl p-6 shadow-sm">
           <h3 className="text-base font-medium text-gray-900 dark:text-richblack-25">Total Withdrawal</h3>
           {/* <p className="text-3xl font-semibold text-caribbeangreen-400 mt-3">+$2,300</p> */}
-          <p className="text-3xl font-semibold text-caribbeangreen-400 mt-3">
-            +${profile?.withdraw || 0}
-          </p>
-          <div className='flex justify-end'>
+         <p className="text-3xl font-semibold text-caribbeangreen-400 mt-3 flex items-center gap-2">
+          <img src={UsdtImage} alt="USDT" className="w-8 h-8 mt-2" />
+          +{profile?.withdraw || 0}
+         </p>
+
+          <div className='flex justify-end mt-5'>
             <button 
               onClick={() => navigate("/withdrawal-transactions")}
               className="text-sm text-gray-600 dark:bg-yellow-50 dark:border-yellow-50 dark:text-richblack-900 font-semibold hover:bg-gray-200 dark:hover:bg-yellow-100 hover:text-gray-800 mt-1 border 
@@ -104,9 +118,15 @@ export default function Dashboard() {
         {/* Balance */}
         <div>
           <p className="text-sm text-gray-300">Available Balance</p>
-          <p className="text-4xl font-bold mt-1">
-            {showBalance ? "•••••••" : `$${profile?.wallet ?? 0}`}
+          <p className="text-4xl font-bold mt-1 flex items-center gap-2">
+            {showBalance ? "•••••••" : (
+              <>
+                <img src={UsdtImage} alt="USDT" className="w-10 h-10 mt-2" />
+                {profile?.wallet ?? 0}
+              </>
+            )}
           </p>
+
           <div className="flex items-center space-x-2 mt-2 text-sm text-gray-300">
             <TrendingUp className="w-4 h-4 dark:text-green-400" />
             <span className='dark:text-yellow-50'>+2.5% <span className='text-gray-300'>from last month</span></span>

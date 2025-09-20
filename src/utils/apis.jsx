@@ -20,7 +20,8 @@ const apis = {
   bankdetails:`${configModalUsaWin}bankdetails`,
   add_bank_account:`${configModalUsaWin}add_bank_account`,
 
-
+   // withdeawal api
+  withdraw_request:`${configModalUsaWin}withdraw_request`,
 
 
 

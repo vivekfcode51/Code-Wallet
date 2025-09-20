@@ -24,10 +24,11 @@ const QrUsdtPayment = () => {
         "https://sudhirtest.mobileappdemo.net/api/qrview"
       );
       console.log("Show qr", res);
+
       if (res.data.success) {
-        // method 1=TRC20 (type 1), method 2=BEP20 (type 2)
-        const filtered = res.data.data.find((item) =>
-          method === 0 ? item.type === 0 : item.type === 1
+        // method ke basis par filter karo
+        const filtered = res.data.data.find(
+          (item) => item.details.type === method
         );
         setQrData(filtered || res.data.data[0]);
       }
@@ -37,6 +38,8 @@ const QrUsdtPayment = () => {
       setLoading(false);
     }
   };
+  console.log("qrData rq", qrData);
+
 
   useEffect(() => {
     fatchQrData();
@@ -114,21 +117,18 @@ const QrUsdtPayment = () => {
           {/* QR Code */}
           <div className="flex flex-col items-center space-y-3 mt-6">
             <img
-              src={qrData?.qr_code}
-              alt="USDT QR"
+              src={qrData?.details?.qr_code}
+              alt={qrData?.name}
               className="w-40 h-40 rounded-lg border border-gray-300 dark:border-richblack-700 shadow-md"
             />
             {/* Wallet Address */}
-            <p
-              className="flex items-center justify-between w-full py-2 px-3 rounded-lg bg-gray-100 dark:bg-richblack-800 border border-gray-300 
-            dark:border-richblack-800 shadow-sm dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]"
-            >
+            <p className="flex items-center justify-between w-full py-2 px-3 rounded-lg bg-gray-100 dark:bg-richblack-800 border border-gray-300 dark:border-richblack-800 shadow-sm dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)]">
               <span className="text-sm font-medium text-gray-700 dark:text-richblack-200 truncate max-w-[80%]">
-                {qrData?.wallet_address}
+                {qrData?.details?.wallet_address}
               </span>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(qrData?.wallet_address || "");
+                  navigator.clipboard.writeText(qrData?.details?.wallet_address || "");
                   toast.success("Wallet address copied!");
                 }}
                 className="ml-3 p-2 shrink-0 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-richblack-700 dark:hover:bg-richblack-600 transition"

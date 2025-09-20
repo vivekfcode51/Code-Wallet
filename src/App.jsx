@@ -11,6 +11,7 @@ import './App.css'
 import QrUsdtPayment from './pages/Deposit/QrUsdtPayment';
 import TotalDepositTransition from './pages/Deposit/TotalDepositTransition';
 import TotalWithdrawalTransition from './pages/withdrawal/TotalWithdrawalTransition';
+import TotalTransition from './pages/TotalTransition';
 
 function App() {
 
@@ -64,6 +65,12 @@ function App() {
           <Route 
             path="/withdrawal-transactions" 
             element={<TotalWithdrawalTransition />} 
+          />
+
+           {/* TotalTransition */}
+          <Route 
+            path="/wallet/total-transactions" 
+            element={<TotalTransition />} 
           />
 
         </Routes>

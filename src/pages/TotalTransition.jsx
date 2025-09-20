@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowDownLeft,
   ArrowUpRight,
   Clock,
   CircleCheckBig,
   X,
+  ArrowLeft,
 } from "lucide-react";
 import TRC20Image from "../assets/walletImage/usdtaddress.png";
 import bep20Image from "../assets/walletImage/USDT-BEP20.png";
 
-export default function TransactionHistory() {
+const TotalTransition = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTransactions();
@@ -60,9 +63,19 @@ export default function TransactionHistory() {
 
   return (
     <div className="bg-white dark:bg-richblack-900 rounded-2xl shadow p-6">
-      <h2 className="text-lg font-semibold mb-4 dark:text-richblack-25">
-        Transaction History
-      </h2>
+      <div className="flex items-center space-x-4 mb-4">
+        {/* Back Arrow */}
+        <button
+          onClick={() => navigate(-1)} // 👈 back le jayega
+          className=" p-1 rounded-full hover:bg-gray-100 dark:hover:bg-richblack-700 dark:bg-richblack-800 flex justify-start mb-3"
+        >
+          <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-richblack-400 dark:hover:text-blue-400" />
+        </button>
+
+        <h2 className="text-lg font-semibold mb-4 dark:text-richblack-25">
+          Transaction History
+        </h2>
+      </div>
 
       {loading ? (
         <p className="text-center text-gray-500">Loading...</p>
@@ -70,7 +83,7 @@ export default function TransactionHistory() {
         <p className="text-center text-gray-500">No transactions found</p>
       ) : (
         <div className="space-y-3">
-          {transactions.slice(0, 5).map((tx) => {
+          {transactions.map((tx) => {
             const isDeposit = tx.transaction_type === "payin";
             const status = getStatus(tx.status);
 
@@ -139,4 +152,6 @@ export default function TransactionHistory() {
       )}
     </div>
   );
-}
+};
+
+export default TotalTransition;

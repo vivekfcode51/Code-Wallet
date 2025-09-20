@@ -5,6 +5,9 @@ import { Clock, CircleCheckBig, X, ArrowLeft, Import } from "lucide-react";
 import { getTransactionMeta } from "../../reusable_component/GetTransactionMeta ";
 import { useNavigate } from "react-router-dom";
 import apis from "../../utils/apis";
+import TRC20Image from "../../assets/walletImage/usdtaddress.png";
+import BEP20Image from "../../assets/walletImage/USDT-BEP20.png";
+
 
 const TotalDepositTransition = () => {
   const [transactions, setTransactions] = useState([]);
@@ -82,8 +85,13 @@ const TotalDepositTransition = () => {
 
                   {/* Right */}
                   <div className="flex flex-col items-center">
-                    <span className={`font-semibold mb-1 ${amountColor}`}>
-                      +${tx.amount}
+                    <span className={`font-semibold mb-1 ${amountColor} flex items-center gap-1`}>
+                      <img 
+                        src={tx.type === 0 ? TRC20Image : BEP20Image} 
+                        alt={tx.type === 0 ? "TRC20" : "BEP20"} 
+                        className="w-4 h-4 inline-block ml-1"
+                      />
+                      +{tx.amount}
                     </span>
                     <span
                       className={`px-3 py-1 text-[12px] font-medium rounded-xl flex items-center space-x-1 ${statusColor}
