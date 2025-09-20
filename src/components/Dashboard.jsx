@@ -8,9 +8,8 @@ import apis from "../utils/apis"
 import Loader from '../reusable_component/Loader';
 import UsdtImage from "../assets/walletImage/UsdtImage.png"
 
-export default function Dashboard() {
+export default function Dashboard({profile, setProfile}) {
 
-    const [profile, setProfile] = useState(null);
     const id = localStorage.getItem("user_id")
     const [loading, setLoading] = useState(true);
     const [showBalance, setShowBalance] = useState(true);

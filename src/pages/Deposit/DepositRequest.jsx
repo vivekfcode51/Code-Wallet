@@ -61,7 +61,7 @@ const DepositRequest = () => {
         <p className="text-gray-500 dark:text-richblack-400 text-center mt-1 mb-6 font-medium text-[14px]">
           Submit a deposit request{" "}
           <span className="dark:text-[#47A5C5] italic">
-            to transfer funds from your wallet
+            to transfer funds to your wallet
           </span>
         </p>
 

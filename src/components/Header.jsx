@@ -4,7 +4,7 @@ import { Bell, User, Moon, Sun, ArrowDownNarrowWide } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { ThemeContext } from "../context/ThemeContext";
 
-const Header = () => {
+const Header = ({profile}) => {
     const { theme, toggleTheme } = useContext(ThemeContext);
   return (
     <>
@@ -13,10 +13,10 @@ const Header = () => {
             <div className="flex w-11/12 max-w-6xl items-center justify-between">
                 {/* Left section */}
                 <div className="flex items-center space-x-3">
-                    <img src={logo} alt="Logo" className="w-12 h-12 object-contain" />
+                    <img src={logo} alt="Logo" className="w-16 h-16 object-contain" />
                     <div className="leading-tight">
-                        <h2 className="text-lg font-semibold text-gray-900 dark:text-richblack-25">SecureWallet</h2>
-                        <p className="text-sm text-gray-500 dark:text-richblack-25">Welcome back, text@gmail.com</p>
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-richblack-25">CloudWallet</h2>
+                        <p className="text-sm text-gray-500 dark:text-richblack-25">Welcome back, {profile && profile?.name || "Your Name"}</p>
                     </div>
                 </div>
 

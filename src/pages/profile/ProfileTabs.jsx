@@ -85,6 +85,7 @@ export default function ProfileTabs() {
 
   // console.log("profile_image",userData.profile_image)
 
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-richblack-800 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -109,10 +110,16 @@ export default function ProfileTabs() {
                   <Check className="w-3 h-3 mr-1" />
                   Verified
                 </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                {/* <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                   <Shield className="w-3 h-3 mr-1" />
                   {userData.twoFAEnabled ? '2FA Enabled' : '2FA Disabled'}
-                </span>
+                </span> */}
+                {userData.twoFAEnabled && (
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    <Shield className="w-3 h-3 mr-1" />
+                    2FA Enabled
+                  </span>
+                )}
               </div>
             </div>
           </div>
