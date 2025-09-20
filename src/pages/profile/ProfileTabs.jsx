@@ -134,7 +134,7 @@ export default function ProfileTabs() {
             </div>
 
             {/* Right Side Button */}
-            <button className="mt-4 sm:mt-0 px-4 py-2 text-[#525252] dark:text-richblack-900 dark:bg-yellow-50 dark:hover:bg-yellow-100 rounded-md text-sm font-medium hover:bg-gray-300 dark:hover:text-richblack-900 transition cursor-pointer">
+            <button className="mt-4 sm:mt-0 px-4 py-2 text-richblack-900 bg-yellow-50 dark:text-richblack-900 dark:bg-yellow-50 dark:hover:bg-yellow-100 rounded-md text-sm font-medium hover:bg-yellow-100 dark:hover:text-richblack-900 transition cursor-pointer">
               <Link to="/">
                 {/* <ArrowDownNarrowWide size={22} /> */}
                 <button className="cursor-pointer font-medium">Logout</button>

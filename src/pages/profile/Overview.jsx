@@ -66,11 +66,11 @@ const Overview = ({ userData, setActiveTab, }) => {
               <CreditCard className="w-5 h-5 text-gray-600 dark:text-yellow-200" />
             </div>
             <div className="flex">
-              <p className="font-semibold text-gray-700 dark:text-richblack-200">
+              {/* <p className="font-semibold text-gray-700 dark:text-richblack-200">
                 {bank.account_name}
-              </p>
+              </p> */}
               <p className="text-sm text-gray-500 dark:text-richblack-400">
-                ****{String(bank.account_number).slice(-4)}
+                {String(bank.account_number)}
               </p>
             </div>
           </div>
