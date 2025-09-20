@@ -234,29 +234,31 @@ const handleVerifyOtp = async () => {
       {/* ✅ OTP Modal */}
       {showOtpModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-richblack-900 p-6 rounded-xl shadow-lg w-96">
-            <h2 className="text-lg font-semibold mb-4 dark:text-white">Enter OTP</h2>
+          <div className="bg-white dark:bg-richblack-900 p-6 rounded-xl shadow-lg w-80 xl:w-96">
+            <h2 className="text-lg font-semibold mb-4 dark:text-caribbeangreen-300">Enter OTP</h2>
             <input
               type="text"
               placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 mb-4 dark:bg-richblack-800 dark:text-white"
+              className="w-full border rounded-lg px-3 py-2 mb-4 bg-gray-200 border-gray-200 outline-none dark:border-richblack-800 dark:bg-richblack-800 dark:text-white"
             />
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowOtpModal(false)}
-                className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700"
+                className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 font-medium text-[14px] cursor-pointer"
               >
                 Cancel
               </button>
-              <button
+              <div className="">
+                <button
                 onClick={handleVerifyOtp}
                 disabled={loading}
-                className="px-4 py-2 rounded-lg bg-yellow-25 text-richblack-900"
+                className="w-full min-w-[120px] px-4 py-2 rounded-lg bg-yellow-25 text-richblack-900 font-medium text-[14px] cursor-pointer"
               >
                 {loading ? <Spinner />  : "Verify OTP"}
               </button>
+              </div>
             </div>
           </div>
         </div>
