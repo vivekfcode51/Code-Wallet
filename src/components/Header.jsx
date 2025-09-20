@@ -43,12 +43,12 @@ const Header = ({profile}) => {
                             <User size={22} />
                         </button>
                     </Link>
-                    <button 
+                    {/* <button 
                         className="px-4 py-2 text-[#525252] dark:text-richblack-25 rounded-md text-sm font-medium hover:bg-gray-300 dark:hover:text-richblack-900 transition cursor-pointer">
                        <Link to="/">
                         <ArrowDownNarrowWide size={22} />
                        </Link>
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>
