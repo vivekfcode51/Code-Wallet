@@ -141,13 +141,14 @@ const WithdrawalRequest = () => {
   // Bank Card Component
   const BankCard = ({ bank }) => {
     const [isOpen, setIsOpen] = useState(false);
+    
 
     return (
       <div
         onClick={() => setSelectedBankId(bank.id)} // ✅ update selected
         className={`bg-white dark:bg-richblack-800 rounded-lg shadow-sm dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.18)] mb-3 overflow-hidden cursor-pointer ${
           selectedBankId === bank.id
-            ? "border-gray-200 border-dashed dark:border-richblack-800"
+            ? "border-b-1 border-yellow-50"
             : "border-gray-200 dark:border-richblack-700"
         }`}
       >
@@ -273,10 +274,18 @@ const WithdrawalRequest = () => {
               </div>
 
               {/* View More logic */}
-              {bankDetails.length > 0 && (
+              {/* {bankDetails.length > 0 && (
                 <div
                   onClick={() => setShowAll(!showAll)}
                   className="text-[12px] text-gray-600 font-semibold hover:bg-gray-200 hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg cursor-pointer shadow-sm dark:text-richblack-400 dark:hover:text-richblack-200 dark:hover:bg-richblack-700 dark:bg-richblack-800 dark:border-richblack-800"
+                >
+                  {showAll ? "View Less" : "View More"}
+                </div>
+              )} */}
+              {bankDetails.length > 0 && (
+                <div
+                  onClick={() => setShowAll(!showAll)}
+                  className="text-[12px] text-gray-600 font-semibold hover:text-gray-800 mt-1 border border-gray-200 px-2 py-1 rounded-lg cursor-pointer dark:text-richblack-400 dark:hover:text-richblack-200 dark:border-richblack-800"
                 >
                   {showAll ? "View Less" : "View More"}
                 </div>
